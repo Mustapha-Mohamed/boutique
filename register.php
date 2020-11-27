@@ -21,8 +21,9 @@ $telephone= $_POST['telephone'];
 if($username&&$email&&$password&&$repeatpassword){
     
     if($password==$repeatpassword){
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 12]);
         $bd->query("INSERT INTO users (username, email, password, pays,ville, adresse, nom, prenom, telephone) VALUES ('$username','$email','$password', '$pays','$ville','$adresse','$nom','$prenom','$telephone')");
-        echo 'Vous avez créer votre compte';
+        header('location:connect.php');
     }else{
         echo'les mots de passe ne sont pas identiques';
     }
